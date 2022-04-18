@@ -18,8 +18,7 @@ module.exports = (env) => {
         mode: 'none',
         devtool: false,
         output: {
-            path: __dirname,
-            filename:  '../../dist'
+            path: BUILD_DIRECTORY,
         },
         plugins: [
             //Каждый плагин - это конструктор
