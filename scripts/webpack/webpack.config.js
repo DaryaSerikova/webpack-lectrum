@@ -1,12 +1,13 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
-//the path(s) that should be cleaned
-const pathsToClean = [ 'dist' ];
+const { BUILD_DIRECTORY, PROJECT_ROOT } = require('./constants');
 
 //the clean options to use
 const cleanOptions = {
     verbose: true,
+    root: PROJECT_ROOT,
+    cleanOnceBeforeBuildPatterns: BUILD_DIRECTORY,
 };
 
 
@@ -16,6 +17,10 @@ module.exports = (env) => {
     return {
         mode: 'none',
         devtool: false,
+        output: {
+            path: __dirname,
+            filename:  '../../dist'
+        },
         plugins: [
             //Каждый плагин - это конструктор
             new HtmlWebpackPlugin({
@@ -23,8 +28,7 @@ module.exports = (env) => {
                 title: 'Изучаем вебпак',
                 favicon: './static/favicon.ico',
             }), 
-            new CleanWebpackPlugin(pathsToClean, cleanOptions),
-
+            new CleanWebpackPlugin(cleanOptions), //[BUILD_DIRECTORY], cleanOptions
         ],
     };
 };
